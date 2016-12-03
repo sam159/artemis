@@ -1,0 +1,15 @@
+{
+  "name": "sam159/artemis",
+  "description": "Description Here",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Sam Stevens",
+      "email": "sam@xnet.tk"
+    }
+  ],
+  "require": {
+    "nikic/fast-route": "^1.0"
+  }
+}
