@@ -1,8 +1,14 @@
 {
   "name": "sam159/artemis",
-  "description": "Description Here",
+  "description": "Artemis CMS",
   "minimum-stability": "stable",
-  "license": "proprietary",
+  "license": "BSD-2-Clause",
+  "version": "0.0.1-dev",
+  "type": "project",
+  "homepage": "https://github.com/sam159/artemis",
+  "support": {
+    "issues": "https://github.com/sam159/artemis/issues"
+  },
   "authors": [
     {
       "name": "Sam Stevens",
