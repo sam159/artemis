@@ -1,4 +1,12 @@
 
+#Ignore uploads folder
+/content/uploads/*
+#Ignore cache folder
+/content/cache/*
+
+#Dont ignore gitkeep files
+!.gitkeep
+
 #Composer
 composer.phar
 /vendor/

@@ -8,12 +8,13 @@ if (php_sapi_name() == 'cli-server') {
 }
 
 require 'vendor/autoload.php';
+require 'library/include.php';
 
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
 
     $r->addRoute('GET', '/', function() {
         header('Content-Type: text/plain');
-        echo 'Hello World';
+        echo filters_run('HELLO.WORLD', 'Hello World');
     });
 
 });
