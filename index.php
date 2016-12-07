@@ -14,7 +14,7 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
 
     $r->addRoute('GET', '/', function() {
         header('Content-Type: text/plain');
-        echo filters_run('HELLO.WORLD', 'Hello World');
+        actions_run('SAY.HELLO');
     });
 
 });

@@ -8,8 +8,11 @@
 
 use Artemis\Pluggable\Actions;
 
-function actions_add($name, callable $callback) {
-    Actions::Add($name, $callback);
+function actions_add($name, $handle, callable $callback) {
+    Actions::Add($name, $handle, $callback);
+}
+function actions_remove($name, $handle) {
+    return Actions::Remove($name, $handle);
 }
 function actions_run($name, ...$params) {
     Actions::RunArray($name, $params);
@@ -19,10 +22,12 @@ function actions_run($name, ...$params) {
 
 use Artemis\Pluggable\Filters;
 
-function filters_add($name, callable $callback) {
-    Filters::Add($name, $callback);
+function filters_add($name, $handle, callable $callback) {
+    Filters::Add($name, $handle, $callback);
 }
-
+function filters_remove($name, $handle) {
+    return Filters::Remove($name, $handle);
+}
 function filters_run($name, $value, ...$params) {
     return Filters::RunArray($name, $value, $params);
 }
