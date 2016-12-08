@@ -13,11 +13,17 @@ class Actions
 {
     private static $actions = [];
 
-    public static function Add($name, $handle, callable $callback) {
+    public static function Add($name, $handle, callable $callback, $priority = 50) {
         if (array_key_exists($name, self::$actions)) {
-            array_push(self::$actions[$name], [$handle, $callback]);
+            //Find position to add, before any higher priority
+            for($i=0; $i < count(self::$actions[$name]); $i++) {
+                if (self::$actions[$name][$i][2] > $priority) {
+                    break;
+                }
+            }
+            array_splice(self::$actions[$name], $i, 0, [[$handle, $callback, $priority]]);
         } else {
-            self::$actions[$name] = [[$handle, $callback]];
+            self::$actions[$name] = [[$handle, $callback, $priority]];
         }
     }
 

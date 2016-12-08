@@ -13,11 +13,17 @@ class Filters
 {
     private static $filters = [];
 
-    public static function Add($name, $handle, callable $callback) {
+    public static function Add($name, $handle, callable $callback, $priority = 50) {
         if (array_key_exists($name, self::$filters)) {
-            array_push(self::$filters[$name], [$handle, $callback]);
+            //Find position to add, before any higher priority
+            for($i=0; $i < count(self::$filters[$name]); $i++) {
+                if (self::$filters[$name][$i][2] > $priority) {
+                    break;
+                }
+            }
+            array_splice(self::$filters[$name], $i, 0, [[$handle, $callback, $priority]]);
         } else {
-            self::$filters[$name] = [[$handle, $callback]];
+            self::$filters[$name] = [[$handle, $callback, $priority]];
         }
     }
 
