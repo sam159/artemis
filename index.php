@@ -10,11 +10,13 @@ if (php_sapi_name() == 'cli-server') {
 require 'vendor/autoload.php';
 require 'library/include.php';
 
+actions_add('SAY.HELLO', 'test1', 'var_dump');
+
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
 
     $r->addRoute('GET', '/', function() {
         header('Content-Type: text/plain');
-        actions_run('SAY.HELLO');
+        actions_run('SAY.HELLO', 'hello');
     });
 
 });
