@@ -16,7 +16,9 @@
     }
   ],
   "require": {
-    "nikic/fast-route": "^1.0"
+    "nikic/fast-route": "^1.0",
+    "doctrine/dbal": "^2.5",
+    "composer/semver": "^1.4"
   },
   "autoload": {
     "psr-4": {

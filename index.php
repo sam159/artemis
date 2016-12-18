@@ -7,6 +7,8 @@ if (php_sapi_name() == 'cli-server') {
     }
 }
 
+define('ARTE_ROOT_DIR', __DIR__);
+
 require 'vendor/autoload.php';
 require 'library/include.php';
 
