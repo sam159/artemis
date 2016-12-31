@@ -31,3 +31,6 @@ function filters_remove($name, $handle) {
 function filters_run($name, $value, ...$params) {
     return Filters::RunArray($name, $value, $params);
 }
+
+/* Plugins */
+
