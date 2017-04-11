@@ -12,13 +12,17 @@ define('ARTE_ROOT_DIR', __DIR__);
 require 'vendor/autoload.php';
 require 'library/include.php';
 
-actions_add('SAY.HELLO', 'test1', 'var_dump');
-
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
 
     $r->addRoute('GET', '/', function() {
         header('Content-Type: text/plain');
-        actions_run('SAY.HELLO', 'hello');
+
+        $scanner = new \Artemis\Pluggable\Plugin\Scanner(ARTE_PLUGIN_DIR);
+        $manager = new \Artemis\Pluggable\Plugin\Manager($scanner, []);
+        $manager->initialise();
+
+        var_dump($manager->getPlugins());
+
     });
 
 });

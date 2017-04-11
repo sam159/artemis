@@ -58,7 +58,7 @@ class Scanner
      * @return Plugin[]
      */
     protected function FindJSON() {
-        $pattern = '/plugin\.info\.json/i';
+        $pattern = '/plugin\.info\.json$/i';
 
         $files = $this->Find($pattern);
 
@@ -69,7 +69,7 @@ class Scanner
      * @return Plugin[]
      */
     protected function FindPHP() {
-        $pattern = '/plugin\.info\.php/i';
+        $pattern = '/plugin\.info\.php$/i';
 
         $files = $this->Find($pattern);
 
@@ -77,8 +77,9 @@ class Scanner
     }
 
     protected function Find($pattern) {
-        $dirIter = new RecursiveDirectoryIterator($this->dir);
-        $iter = new RecursiveRegexIterator($dirIter, $pattern);
+        $dirIter = new RecursiveDirectoryIterator($this->dir, RecursiveDirectoryIterator::SKIP_DOTS);
+        $recIter = new \RecursiveIteratorIterator($dirIter);
+        $iter = new \RegexIterator($recIter, $pattern);
         $files = [];
         foreach($iter as $file) {
             $files[] = $file;

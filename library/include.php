@@ -4,9 +4,9 @@
  * You must also include the vendor autoload file before including this.
  */
 
+//Helpers
+require_once 'helpers/file.php';
+require_once 'helpers/pluggable.php';
+
 //Constants
 require_once 'constants.php';
-
-//Helpers
-require_once 'helpers/pluggable.php';
-require_once 'helpers/file.php';
