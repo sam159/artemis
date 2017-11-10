@@ -3,6 +3,8 @@
 /content/uploads/*
 #Ignore cache folder
 /content/cache/*
+#Ignore config folder
+/config
 
 #Dont ignore gitkeep files
 !.gitkeep

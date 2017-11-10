@@ -11,28 +11,28 @@ namespace Artemis\Pluggable;
 
 trait CallChainTrait
 {
-    protected static $chain = [];
+    protected $chain = [];
 
-    public static function Add($name, $handle, callable $callback, $priority = 50) {
-        if (array_key_exists($name, self::$chain)) {
+    public function Add($name, $handle, callable $callback, $priority = 50) {
+        if (array_key_exists($name, $this->chain)) {
             //Find position to add, before any higher priority
-            for($i=0; $i < count(self::$chain[$name]); $i++) {
-                if (self::$chain[$name][$i][2] > $priority) {
+            for($i=0; $i < count($this->chain[$name]); $i++) {
+                if ($this->chain[$name][$i][2] > $priority) {
                     break;
                 }
             }
-            array_splice(self::$chain[$name], $i, 0, [[$handle, $callback, $priority]]);
+            array_splice($this->chain[$name], $i, 0, [[$handle, $callback, $priority]]);
         } else {
-            self::$chain[$name] = [[$handle, $callback, $priority]];
+            $this->chain[$name] = [[$handle, $callback, $priority]];
         }
     }
 
-    public static function Remove($name, $handle) {
-        if (!array_key_exists($name, self::$chain)) {
+    public function Remove($name, $handle) {
+        if (!array_key_exists($name, $this->chain)) {
             return false;
         }
         $pos = -1;
-        foreach(self::$chain[$name] as $i => $v) {
+        foreach($this->chain[$name] as $i => $v) {
             list($h,) = $v;
             if ($h == $handle) {
                 $pos = $i;
@@ -40,7 +40,7 @@ trait CallChainTrait
             }
         }
         if ($pos > -1) {
-            array_splice(self::$chain[$name], $pos, 1);
+            array_splice($this->chain[$name], $pos, 1);
             return true;
         }
         return false;

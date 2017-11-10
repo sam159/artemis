@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'name' => 'Test Plugin',
-    'entryPoint' => 'main.php'
+    'name' => 'test',
+    'entry-point' => 'main.php'
 ];

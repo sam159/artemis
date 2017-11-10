@@ -13,11 +13,11 @@ class Filters
 {
     use CallChainTrait;
 
-    public static function RunArray($name, $value, array $params)
+    public function RunArray($name, $value, array $params)
     {
-        if (array_key_exists($name, self::$chain)) {
+        if (array_key_exists($name, $this->chain)) {
             array_unshift($params, $value);
-            foreach (self::$chain[$name] as $v) {
+            foreach ($this->chain[$name] as $v) {
                 list(, $callback) = $v;
                 $value = call_user_func_array($callback, $params);
             }
@@ -25,8 +25,8 @@ class Filters
         return $value;
     }
 
-    public static function Run($name, $value, ...$params)
+    public function Run($name, $value, ...$params)
     {
-        return self::RunArray($name, $value, $params);
+        return $this->RunArray($name, $value, $params);
     }
 }

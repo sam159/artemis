@@ -13,17 +13,17 @@ class Actions
 {
     use CallChainTrait;
 
-    public static function RunArray($name, array $params) {
-        if (array_key_exists($name, self::$chain)) {
-            foreach(self::$chain[$name] as $v) {
+    public function RunArray($name, array $params) {
+        if (array_key_exists($name, $this->chain)) {
+            foreach($this->chain[$name] as $v) {
                 list(, $callback) = $v;
                 call_user_func_array($callback, $params);
             }
         }
     }
 
-    public static function Run($name, ...$params) {
-        self::RunArray($name, $params);
+    public function Run($name, ...$params) {
+        $this->RunArray($name, $params);
     }
 
 }

@@ -110,11 +110,25 @@ class Manager
     }
 
     /**
-     * Adds the named plugin to the enable plugin, does not load or enable plugin
+     * Adds the named plugin to the enable plugin, this doesn't load the plugin
      * @param string $name
      */
     public function enablePlugin($name) {
         $this->enabled[] = $name;
+    }
+
+    /**
+     * Removes a plugin from the enabled list, this doesn't unload the plugin
+     * @param string $name
+     * @return bool
+     */
+    public function disablePlugin($name) {
+        $i = array_search($name, $this->enabled);
+        if ($i === false) {
+            return false;
+        }
+        array_splice($this->enabled, $i, 1);
+        return true;
     }
 
     //Info helpers

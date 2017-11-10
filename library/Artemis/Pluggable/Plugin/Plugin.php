@@ -46,10 +46,10 @@ class Plugin
         $plugin->version = $version;
         //Read license
         $plugin->license = array_key_exists('license', $info) ? $info['license'] : '';
-        $plugin->licenseUrl = array_key_exists('licenseUrl', $info) ? $info['licenseUrl'] : '';
+        $plugin->licenseUrl = array_key_exists('license-url', $info) ? $info['license-url'] : '';
 
         //Read the entry point
-        $plugin->entryPoint = array_key_exists('entryPoint', $info) ? $info['entryPoint'] : 'plugin.php';
+        $plugin->entryPoint = array_key_exists('entry-point', $info) ? $info['entry-point'] : 'plugin.php';
 
         return $plugin;
     }

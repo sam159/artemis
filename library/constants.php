@@ -7,6 +7,10 @@ if (!defined('ARTE_ROOT_DIR')) {
 }
 
 if (!defined('ARTE_CONTENT_DIR')) {
+    define('ARTE_CONFIG_DIR', pathjoin(ARTE_ROOT_DIR, 'config'));
+}
+
+if (!defined('ARTE_CONTENT_DIR')) {
     define('ARTE_CONTENT_DIR', pathjoin(ARTE_ROOT_DIR, 'content'));
 }
 

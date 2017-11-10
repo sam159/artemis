@@ -7,6 +7,11 @@
 //Helpers
 require_once 'helpers/file.php';
 require_once 'helpers/pluggable.php';
+require_once 'helpers/config.php';
+require_once 'helpers/render.php';
 
 //Constants
 require_once 'constants.php';
+
+//Init arte
+\Artemis\Arte::Init();

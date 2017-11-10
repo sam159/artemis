@@ -1,6 +1,14 @@
 <?php
 
 if (php_sapi_name() == 'cli-server') {
+    $logLine = join("\t", [
+        date('c'),
+        $_SERVER['REMOTE_ADDR'],
+        $_SERVER['REQUEST_METHOD'],
+        $_SERVER['REQUEST_URI']
+    ]);
+    file_put_contents("php://stdout", $logLine."\n");
+
     $info = parse_url($_SERVER['REQUEST_URI']);
     if (file_exists('./'.$info['path']) && is_file('./'.$info['path'])) {
         return false;
@@ -17,16 +25,11 @@ $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) 
     $r->addRoute('GET', '/', function() {
         header('Content-Type: text/plain');
 
-        $scanner = new \Artemis\Pluggable\Plugin\Scanner(ARTE_PLUGIN_DIR);
-        $manager = new \Artemis\Pluggable\Plugin\Manager($scanner, []);
-        $manager->initialise();
-
-        var_dump($manager->getPlugins());
+        var_dump(\Artemis\Arte::$plugins->getLoaded());
 
     });
 
 });
-
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
