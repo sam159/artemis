@@ -1,0 +1,22 @@
+{% extends "@ARTE/base.twig" %}
+
+{% block content %}
+    <p>Plugins Loaded</p>
+    <ul>
+        {% for p in plugins %}
+            <li>{{ p.title }}</li>
+        {% endfor %}
+    </ul>
+    <p>Theme</p>
+    {% if currentTheme %}
+        <p>Current Theme: {{ currentTheme.title }}
+    {% else %}
+        <p>No Current Theme</p>
+    {% endif %}
+    <p>Themes Loaded</p>
+    <ul>
+        {% for t in themes %}
+            <li>{{ t.title }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Sam
- * Date: 18/12/2016
- * Time: 01:41 PM
- */
 
 namespace Artemis\Pluggable\Plugin;
 
@@ -14,7 +8,8 @@ use RecursiveRegexIterator;
 
 class Scanner
 {
-    public static function GetDefault() {
+    public static function GetDefault()
+    {
         return new self(ARTE_PLUGIN_DIR);
     }
 
@@ -42,12 +37,13 @@ class Scanner
      * @return Plugin[]
      * @throws \Exception on duplicate plugins
      */
-    public function FindAll() {
+    public function FindAll()
+    {
         $plugins = array_merge($this->FindJSON(), $this->FindPHP());
         $pluginMap = [];
-        foreach($plugins as $p) {
+        foreach ($plugins as $p) {
             if (array_key_exists($p->name, $pluginMap)) {
-                throw new \Exception('Duplicate plugin found. '.$p->name.' exists in "'.$p->rootDir.'" and "'.$pluginMap[$p->name]->rootDir.'"');
+                throw new \Exception('Duplicate plugin found. ' . $p->name . ' exists in "' . $p->rootDir . '" and "' . $pluginMap[$p->name]->rootDir . '"');
             }
             $pluginMap[$p->name] = $p;
         }
@@ -57,7 +53,8 @@ class Scanner
     /**
      * @return Plugin[]
      */
-    protected function FindJSON() {
+    protected function FindJSON()
+    {
         $pattern = '/plugin\.info\.json$/i';
 
         $files = $this->Find($pattern);
@@ -68,7 +65,8 @@ class Scanner
     /**
      * @return Plugin[]
      */
-    protected function FindPHP() {
+    protected function FindPHP()
+    {
         $pattern = '/plugin\.info\.php$/i';
 
         $files = $this->Find($pattern);
@@ -76,25 +74,29 @@ class Scanner
         return array_map(array($this, 'ReadPlugin'), $files);
     }
 
-    protected function Find($pattern) {
+    protected function Find($pattern)
+    {
         $dirIter = new RecursiveDirectoryIterator($this->dir, RecursiveDirectoryIterator::SKIP_DOTS);
         $recIter = new \RecursiveIteratorIterator($dirIter);
         $iter = new \RegexIterator($recIter, $pattern);
         $files = [];
-        foreach($iter as $file) {
+        foreach ($iter as $file) {
             $files[] = $file;
         }
         return $files;
     }
 
-    protected function ReadPlugin($file) {
+    protected function ReadPlugin($file)
+    {
         $result = include $file;
         return $this->Convert($result, $file);
     }
 
-    protected function Convert($info, $path) {
+    protected function Convert($info, $path)
+    {
 
         if ($info instanceof Plugin) {
+            $info->rootDir = dirname($path);
             return $info;
         }
 
@@ -105,7 +107,7 @@ class Scanner
 
         if (is_array($info)) {
             //Convert array to plugin
-            $plugin = Plugin::ConvertFromArray($info);
+            $plugin = Plugin::FromArray($info);
             if (empty($plugin->name)) {
                 user_error('Plugin did not provide a name, using directory name', E_USER_WARNING);
                 $plugin->name = basename(dirname($path));
@@ -114,7 +116,7 @@ class Scanner
             return $plugin;
         }
 
-        throw new \Exception('Invalid plugin data from '.$path);
+        throw new \Exception('Invalid plugin data from ' . $path);
     }
 
 }

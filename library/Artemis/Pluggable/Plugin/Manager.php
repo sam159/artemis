@@ -42,7 +42,8 @@ class Manager
     /**
      * Reads all plugin data, does not load plugins.
      */
-    public function initialise() {
+    public function initialise()
+    {
         $this->plugins = $this->scanner->FindAll();
     }
 
@@ -53,16 +54,17 @@ class Manager
      * @return int Number of plugins loaded
      * @throws \Exception if enabled plugin not found
      */
-    public function loadEnabled() {
+    public function loadEnabled()
+    {
         $loadCount = 0;
-        foreach($this->enabled as $name) {
+        foreach ($this->enabled as $name) {
             //Skip if already loaded
             if (array_key_exists($name, $this->loaded)) {
                 continue;
             }
             //Error if not found
             if (!array_key_exists($name, $this->plugins)) {
-                throw new \Exception('Enabled plugin '.$name.' could not be found');
+                throw new \Exception('Enabled plugin ' . $name . ' could not be found');
             }
             //Load it
             $plugin = $this->plugins[$name];
@@ -105,16 +107,31 @@ class Manager
      * Adds a new plugin to be loaded
      * @param Plugin $plugin
      */
-    public function injectPlugin(Plugin $plugin) {
+    public function injectPlugin(Plugin $plugin)
+    {
         $this->plugins[$plugin->name] = $plugin;
     }
 
     /**
-     * Adds the named plugin to the enable plugin, this doesn't load the plugin
+     * Adds the named plugin to the enabled list, this doesn't load the plugin
      * @param string $name
      */
-    public function enablePlugin($name) {
-        $this->enabled[] = $name;
+    public function enablePlugin($name)
+    {
+        if (!in_array($name, $this->enabled)) {
+            $this->enabled[] = $name;
+        }
+    }
+
+    /**
+     * Adds the named plugins to the enabled list, this doesn't load the plugin
+     * @param string[] $names
+     */
+    public function enablePlugins(array $names)
+    {
+        for ($i = 0; $i < count($names); $i++) {
+            $this->enablePlugin($names[$i]);
+        }
     }
 
     /**
@@ -122,7 +139,8 @@ class Manager
      * @param string $name
      * @return bool
      */
-    public function disablePlugin($name) {
+    public function disablePlugin($name)
+    {
         $i = array_search($name, $this->enabled);
         if ($i === false) {
             return false;
@@ -133,10 +151,13 @@ class Manager
 
     //Info helpers
 
-    public function isEnabled($name) {
+    public function isEnabled($name)
+    {
         return in_array($name, $this->enabled);
     }
-    public function isLoaded($name) {
+
+    public function isLoaded($name)
+    {
         return array_key_exists($name, $this->loaded);
     }
 }

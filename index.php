@@ -23,9 +23,13 @@ require 'library/include.php';
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
 
     $r->addRoute('GET', '/', function() {
-        header('Content-Type: text/plain');
+        header('Content-Type: text/html');
 
-        var_dump(\Artemis\Arte::$plugins->getLoaded());
+        echo render_file('@ARTE/test.twig', [
+            'plugins' => \Artemis\Arte::$plugins->getLoaded(),
+            'currentTheme' => \Artemis\Arte::$themes->getCurrentTheme(),
+            'themes' => \Artemis\Arte::$themes->getAllThemes()
+        ]);
 
     });
 

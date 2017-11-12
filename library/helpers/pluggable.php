@@ -32,3 +32,19 @@ function filters_run($name, $value, ...$params) {
 
 /* Plugins */
 
+/**
+ * @param $name
+ * @return bool
+ */
+function plugin_enabled($name) {
+    return Arte::$plugins->isEnabled($name);
+}
+
+/* Themes */
+
+/**
+ * @return \Artemis\Pluggable\Theme\Theme
+ */
+function theme_get_current() {
+    return Arte::$themes->getCurrentTheme();
+}

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Sam
- * Date: 10/11/2017
- * Time: 08:49 PM
- */
 
 namespace Artemis\Render;
 
@@ -30,6 +24,8 @@ class Render
             'auto_reload' => true
         ]);
 
+        $this->addNamespace(pathjoin(ARTE_LIBRARY_DIR, 'templates'), 'ARTE');
+        $twig->addGlobal('Site', config_get('site'));
 
     }
 

@@ -10,6 +10,10 @@ if (!defined('ARTE_CONTENT_DIR')) {
     define('ARTE_CONFIG_DIR', pathjoin(ARTE_ROOT_DIR, 'config'));
 }
 
+if (!defined('ARTE_LIBRARY_DIR')) {
+    define('ARTE_LIBRARY_DIR', pathjoin(ARTE_ROOT_DIR, 'library'));
+}
+
 if (!defined('ARTE_CONTENT_DIR')) {
     define('ARTE_CONTENT_DIR', pathjoin(ARTE_ROOT_DIR, 'content'));
 }
